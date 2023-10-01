@@ -1,11 +1,9 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const { PrismaClient } = require('@prisma/client')
+const { prisma } = require('./libs/prisma')
 
-const prisma = new PrismaClient()
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(express.static('public'))
 
 app.get(`/api`, async (req, res) => {
