@@ -59,7 +59,7 @@ const editPost = asyncWrapper(async (req, res) => {
       image,
     },
   });
-  return response(res, StatusCodes.CREATED, "post created sucessfully", post);
+  return response(res, StatusCodes.CREATED, "post updated sucessfully", post);
 });
 
 const deletePost = asyncWrapper(async (req, res) => {
