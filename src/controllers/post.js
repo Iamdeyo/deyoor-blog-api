@@ -2,7 +2,7 @@
 
 import dashify from "dashify";
 import { StatusCodes } from "http-status-codes";
-import { database } from "../libs/Prisma.js";
+import { database } from "../libs/prisma.js";
 import asyncWrapper from "../middleware/asyncWrapper.js";
 import response from "../utils/response.js";
 

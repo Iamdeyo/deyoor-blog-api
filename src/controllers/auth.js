@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcryptjs";
 import asyncWrapper from "../middleware/asyncWrapper.js";
 import response from "../utils/response.js";
-import { database } from "../libs/Prisma.js";
+import { database } from "../libs/prisma.js";
 import { signJwt } from "../utils/jwt.js";
 
 const register = asyncWrapper(async (req, res) => {

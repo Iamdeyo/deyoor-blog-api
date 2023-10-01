@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String   @unique
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  username  String @unique
   password  String
   posts     Post[]
   createdAt DateTime @default(now())
@@ -17,7 +17,7 @@ model User {
 }
 
 model Post {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
   image   String?
   title   String
   slug    String @unique
