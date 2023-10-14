@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import CustomErrorApi from "../errors/CustomErrorApi.js";
 
 cloudinary.v2.config({
-  cloud_name: "dehzwowgv",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 });
 
 const upload = (req, res, next) => {
@@ -24,7 +24,7 @@ const upload = (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        
+
         // Manually delete the temporary file
         fs.unlinkSync(image);
         throw new CustomErrorApi(
