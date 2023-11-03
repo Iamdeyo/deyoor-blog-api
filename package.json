@@ -4,6 +4,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "test": "mocha",
     "build": "npm install",
     "prisma:generate": "prisma generate",
     "dev": "nodemon node src/index.js",
@@ -26,7 +27,9 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
-    "prisma": "^5.3.1"
+    "prisma": "^5.3.1",
+    "supertest": "^6.3.3"
   }
 }
