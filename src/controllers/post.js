@@ -5,18 +5,37 @@ import { StatusCodes } from "http-status-codes";
 import { database } from "../libs/prisma.js";
 import asyncWrapper from "../middleware/asyncWrapper.js";
 import response from "../utils/response.js";
+import { myCache } from "../libs/nodeCache.js";
 
 const getPosts = asyncWrapper(async (req, res) => {
   const { tag } = req.query;
+
+  if (req.cacheData) {
+    return response(res, StatusCodes.OK, "All posts found", req.cacheData);
+  }
+
   const posts = await database.post.findMany({
-    where: {...( tag ? { tags: { has: tag } } : {})},
+    where: { ...(tag ? { tags: { has: tag } } : {}) },
   });
+
+  const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
+  myCache.set(cacheKey, posts, 3600);
+
   return response(res, StatusCodes.OK, "All posts found", posts);
 });
 
 const getAPost = asyncWrapper(async (req, res) => {
   const { id } = req.params;
+
+  if (req.cacheData) {
+    return response(res, StatusCodes.OK, "All posts found", req.cacheData);
+  }
+
   const post = await database.post.findUnique({ where: { id: id } });
+
+  const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
+  myCache.set(cacheKey, post, 3600);
+
   return response(res, StatusCodes.OK, "post found", post);
 });
 

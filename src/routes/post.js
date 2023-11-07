@@ -14,11 +14,12 @@ import {
   validateEditPost,
   validatePost,
 } from "../middleware/postValidator.js";
+import { getCacheData } from "../middleware/myCache.js";
 
 const router = express.Router();
 
-router.get("/", getPosts);
-router.get("/:id", tokenAuth, getAPost);
+router.get("/", getCacheData, getPosts);
+router.get("/:id", tokenAuth, getCacheData, getAPost);
 router.post(
   "/",
   tokenAuth,

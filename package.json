@@ -8,7 +8,8 @@
     "build": "npm install",
     "prisma:generate": "prisma generate",
     "dev": "nodemon node src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "esbuild": "esbuild src/index.js --bundle --platform=node --target=node18 --outfile=build/app.js"
   },
   "dependencies": {
     "@prisma/client": "^5.3.1",
@@ -26,9 +27,11 @@
     "helmet": "^7.0.0",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
+    "esbuild": "0.19.5",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
     "prisma": "^5.3.1",
