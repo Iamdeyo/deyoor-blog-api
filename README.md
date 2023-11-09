@@ -4,7 +4,7 @@ Welcome to the Blog API documentation. This API allows you to interact with blog
 
 ## Base URL
 
-- Base URL: `https://ethical-hettie-dtech.koyeb.app/`
+-   Base URL: `https://ethical-hettie-dtech.koyeb.app/`
 
 ## Authentication
 
@@ -25,8 +25,8 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "username": "Deyo",
-      "password": "DeyoTech"
+        "username": "Deyo",
+        "password": "DeyoTech"
     }
     ```
 
@@ -37,11 +37,11 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "message": "User created successfully",
-      "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.YTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-      },
-      "errors": null
+        "message": "User created successfully",
+        "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.YTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
+        },
+        "errors": null
     }
     ```
 
@@ -54,8 +54,8 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "username": "Deyo",
-      "password": "DeyoTech"
+        "username": "Deyo",
+        "password": "DeyoTech"
     }
     ```
 
@@ -66,11 +66,11 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "message": "User created successfully",
-      "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-      },
-      "errors": null
+        "message": "User created successfully",
+        "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
+        },
+        "errors": null
     }
     ```
 
@@ -91,11 +91,11 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "message": "User created successfully",
-      "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTliZWRjYTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-      },
-      "errors": null
+        "message": "User created successfully",
+        "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTliZWRjYTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
+        },
+        "errors": null
     }
     ```
 
@@ -108,7 +108,6 @@ To access the API, you need to include an API key in the request header.
 
     query parameters
     tag="blog" optional => Retrieves list all blog posts with tag
-    
 
     # Response
 
@@ -117,21 +116,21 @@ To access the API, you need to include an API key in the request header.
 
     ```json
     {
-      "message": "All posts found",
-      "data": [
-        {
-          "id": "6519bfb2a955ad6ab8ec13d4",
-          "image": null,
-          "title": "My First Post",
-          "slug": "my-first-post-1696186287298",
-          "tags": ["post", "blog"],
-          "content": "This is the content of my first post",
-          "createdAt": "2023-10-01T18:51:27.305Z",
-          "updatedAt": "2023-10-01T18:51:27.305Z",
-          "authorId": "6519bedca955ad6ab8ec13d2"
-        }
-      ],
-      "errors": null
+        "message": "All posts found",
+        "data": [
+            {
+                "id": "6519bfb2a955ad6ab8ec13d4",
+                "image": null,
+                "title": "My First Post",
+                "slug": "my-first-post-1696186287298",
+                "tags": ["post", "blog"],
+                "content": "This is the content of my first post",
+                "createdAt": "2023-10-01T18:51:27.305Z",
+                "updatedAt": "2023-10-01T18:51:27.305Z",
+                "authorId": "6519bedca955ad6ab8ec13d2"
+            }
+        ],
+        "errors": null
     }
     ```
 
@@ -268,7 +267,6 @@ To access the API, you need to include an API key in the request header.
               "errors": null
             }
             ```
-
 
 9.  Edit Post
     URL: /api/post

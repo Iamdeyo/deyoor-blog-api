@@ -1,74 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deyo blog api</title>
-  </head>
-  <body>
-    <h1 style="color: cornflowerblue; padding-top: 100px; text-align: center">
-      Deyo Express Blog API
-    </h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Deyo blog api</title>
+    </head>
+    <body>
+        <h1
+            style="
+                color: cornflowerblue;
+                padding-top: 100px;
+                text-align: center;
+            "
+        >
+            Deyo Express Blog API
+        </h1>
 
-    <table border="1" style="margin: auto;">
-      <thead>
-        <tr>
-          <th>Endpoint</th>
-          <th>Method</th>
-          <th>Description</th>
-          <th>Authentication</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/api/auth/register</td>
-          <td>POST</td>
-          <td>Creates a new user account.</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>/api/auth/login</td>
-          <td>POST</td>
-          <td>Login a user account.</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>/api/auth/me</td>
-          <td>GET</td>
-          <td>Retrieves the currently logged-in user's information.</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>/api/posts</td>
-          <td>GET</td>
-          <td>Retrieves a list of all blog posts.</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>/api/posts/:id</td>
-          <td>GET</td>
-          <td>Retrieves a specific blog post by its unique ID.</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>/api/posts/:id</td>
-          <td>DELETE</td>
-          <td>Delete a blog post using the ID.</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>/api/posts</td>
-          <td>POST</td>
-          <td>Create a new blog post.</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>/api/posts/:id</td>
-          <td>PATCH</td>
-          <td>Edit a blog post.</td>
-          <td>Yes</td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
+        <table border="1" style="margin: auto">
+            <thead>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Authentication</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/api/auth/register</td>
+                    <td>POST</td>
+                    <td>Creates a new user account.</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>/api/auth/login</td>
+                    <td>POST</td>
+                    <td>Login a user account.</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>/api/auth/me</td>
+                    <td>GET</td>
+                    <td>
+                        Retrieves the currently logged-in user's information.
+                    </td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>/api/posts</td>
+                    <td>GET</td>
+                    <td>Retrieves a list of all blog posts.</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>/api/posts/:id</td>
+                    <td>GET</td>
+                    <td>Retrieves a specific blog post by its unique ID.</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>/api/posts/:id</td>
+                    <td>DELETE</td>
+                    <td>Delete a blog post using the ID.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>/api/posts</td>
+                    <td>POST</td>
+                    <td>Create a new blog post.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>/api/posts/:id</td>
+                    <td>PATCH</td>
+                    <td>Edit a blog post.</td>
+                    <td>Yes</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
 </html>
