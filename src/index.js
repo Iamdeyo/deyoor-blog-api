@@ -1,9 +1,9 @@
 import express from 'express';
+import cors from 'cors';
 import helmet from 'helmet';
 import { xss } from 'express-xss-sanitizer';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import fileUpload from 'express-fileupload';
 import compression from 'compression';
 import morgan from 'morgan';
 import 'express-async-errors';
@@ -28,11 +28,14 @@ const limiter = rateLimit({
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(xss());
+app.use(
+    cors({
+        origin: '*',
+    }),
+);
 app.use(limiter);
 app.use(express.json());
-app.use(fileUpload({ useTempFiles: true }));
 app.use(compression({ filter: shouldCompress }));
-
 app.get('/', express.static('public'));
 app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);

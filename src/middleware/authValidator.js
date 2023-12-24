@@ -5,13 +5,15 @@ import response from '../utils/response.js';
 const validateRegisterAuth = [
     body('username')
         .exists()
-        .withMessage('Name is required')
+        .withMessage('Username is required')
+        .trim()
         .isLength({ min: 4 })
         .withMessage('Username must be at least 4 characters long'),
 
     body('password')
         .exists()
         .withMessage('Password is required')
+        .trim()
         .isLength({ min: 8 })
         .withMessage('Password must be at least 8 characters long')
         .custom((value) => {
@@ -35,13 +37,15 @@ const validateRegisterAuth = [
 const validateLoginAuth = [
     body('username')
         .exists()
-        .withMessage('Name is required')
+        .withMessage('Username is required')
+        .trim()
         .isLength({ min: 4 })
         .withMessage('Username must be at least 4 characters long'),
 
     body('password')
         .exists()
         .withMessage('Password is required')
+        .trim()
         .isLength({ min: 8 })
         .withMessage('Password must be at least 8 characters long')
         .custom((value) => {

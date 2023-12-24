@@ -8,13 +8,17 @@ import { signJwt } from '../utils/jwt.js';
 const register = asyncWrapper(async (req, res) => {
     const { username, password } = req.body;
 
+    const image = req.file ? req.file.path : null;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await database.user.create({
-        data: { username, password: hashedPassword },
+        data: {
+            username: username.toLowerCase(),
+            password: hashedPassword,
+            displayPhoto: image,
+        },
         select: {
             id: true,
-            username: true,
         },
     });
 
@@ -30,7 +34,7 @@ const login = asyncWrapper(async (req, res) => {
     const { username, password } = req.body;
 
     const user = await database.user.findUnique({
-        where: { username },
+        where: { username: username.toLowerCase() },
     });
 
     if (!user) {
@@ -60,8 +64,7 @@ const login = asyncWrapper(async (req, res) => {
 
 const me = asyncWrapper(async (req, res) => {
     const { id, username } = req.user;
-    const post = await database.post.findMany({ where: { authorId: id } });
-    const data = { id, username, post };
+    const data = { id, username };
     return response(res, StatusCodes.OK, 'User found', data);
 });
 

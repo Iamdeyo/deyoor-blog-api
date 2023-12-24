@@ -24,7 +24,7 @@ router.get('/:id', tokenAuth, getCacheData, getAPost);
 router.post(
     '/',
     tokenAuth,
-    upload,
+    upload.single('image'),
     validateCreatePost,
     validatePost,
     createPost,
@@ -32,7 +32,7 @@ router.post(
 router.patch(
     '/:id',
     tokenAuth,
-    upload,
+    upload.single('image'),
     validateEditPost,
     validatePost,
     editPost,
