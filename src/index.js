@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import 'express-async-errors';
 import authRouter from './routes/auth.js';
 import postRouter from './routes/post.js';
+import userRouter from './routes/user.js';
 import notFound from './middleware/notFound.js';
 import errorHandler from './middleware/errorHandler.js';
 import shouldCompress from './middleware/compression.js';
@@ -39,6 +40,7 @@ app.use(compression({ filter: shouldCompress }));
 app.get('/', express.static('public'));
 app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
+app.use('/api/user', userRouter);
 
 /**
  * Error handlers

@@ -63,8 +63,8 @@ const login = asyncWrapper(async (req, res) => {
 });
 
 const me = asyncWrapper(async (req, res) => {
-    const { id, username } = req.user;
-    const data = { id, username };
+    const { id, username, displayPhoto } = req.user;
+    const data = { id, username, displayPhoto };
     return response(res, StatusCodes.OK, 'User found', data);
 });
 

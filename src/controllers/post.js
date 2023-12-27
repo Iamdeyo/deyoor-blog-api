@@ -29,7 +29,7 @@ const getAPost = asyncWrapper(async (req, res) => {
         return response(res, StatusCodes.OK, 'post found', req.cacheData);
     }
 
-    const post = await database.post.findUnique({ where: { id } });
+    const post = await database.post.findUnique({ where: { slug: id } });
 
     const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
     myCache.set(cacheKey, post, 600);
@@ -37,13 +37,22 @@ const getAPost = asyncWrapper(async (req, res) => {
     return response(res, StatusCodes.OK, 'post found', post);
 });
 
+function calculateReadingTime(text, wordsPerMinute = 200) {
+    const words = text.split(/\s+/).length;
+    const minutes = words / wordsPerMinute;
+    return Math.ceil(minutes);
+}
+
 const createPost = asyncWrapper(async (req, res) => {
-    const { title, content, tags, image } = req.body;
+    const { title, content, tags } = req.body;
     const { id: userId } = req.user;
+
+    const readTime = calculateReadingTime(content);
+
     // slug
     const date = Date.now();
     const slug = dashify(`${title}-${date.toString()}`);
-
+    const image = req.file ? req.file.path : null;
     const post = await database.post.create({
         data: {
             title,
@@ -52,30 +61,32 @@ const createPost = asyncWrapper(async (req, res) => {
             slug,
             tags,
             image,
+            readTime,
         },
     });
     return response(res, StatusCodes.CREATED, 'post created sucessfully', post);
 });
 
 const editPost = asyncWrapper(async (req, res) => {
-    const { title, content, tags, image } = req.body;
+    const { title, content, tags } = req.body;
     const { id } = req.params;
     const { id: userId } = req.user;
 
     // slug
     const date = Date.now();
     const slug = dashify(`${title}-${date.toString()}`);
+    const image = req.file ? req.file.path : null;
+
+    const readTime = calculateReadingTime(content);
+
+    const commonData = { title, content, slug, tags, readTime };
+    const updateData = image ? { ...commonData, image } : commonData;
 
     const post = await database.post.update({
         where: { id, authorId: userId },
-        data: {
-            title,
-            content,
-            slug,
-            tags,
-            image,
-        },
+        data: updateData,
     });
+
     return response(res, StatusCodes.CREATED, 'post updated sucessfully', post);
 });
 
