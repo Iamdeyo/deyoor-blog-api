@@ -4,7 +4,7 @@ import { deleteUser, getAUser } from '../controllers/user.js';
 
 const router = express.Router();
 
-router.get('/:id', tokenAuth, getAUser);
+router.get('/:id', getAUser);
 router.delete('/', tokenAuth, deleteUser);
 
 export default router;

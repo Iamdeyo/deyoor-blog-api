@@ -6,6 +6,7 @@ import {
     deletePost,
     editPost,
     getAPost,
+    getMyPosts,
     getPosts,
 } from '../controllers/post.js';
 import { upload } from '../middleware/upload.js';
@@ -20,7 +21,8 @@ import { getCacheData } from '../middleware/myCache.js';
 const router = express.Router();
 
 router.get('/', getCacheData, getPosts);
-router.get('/:id', tokenAuth, getCacheData, getAPost);
+router.get('/me/:userid', tokenAuth, getCacheData, getMyPosts);
+router.get('/:id', getCacheData, getAPost);
 router.post(
     '/',
     tokenAuth,

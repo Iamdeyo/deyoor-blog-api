@@ -50,6 +50,18 @@ const upload = multer({
     },
 });
 
+const deleteImage = async (imageUrl) => {
+    let url = imageUrl.split('express-blog-api/');
+    url = url[url.length - 1].split('.png', 1)[0];
+    const publicId = 'express-blog-api/' + url;
+    console.log(publicId);
+
+    await cloudinary.api.delete_resources([publicId], {
+        type: 'upload',
+        resource_type: 'image',
+    });
+};
+
 // const upload = (req, res, next) => {
 //     // console.log(req.files.images);
 
@@ -85,4 +97,4 @@ const upload = multer({
 // };
 
 // eslint-disable-next-line import/prefer-default-export
-export { upload };
+export { upload, deleteImage };

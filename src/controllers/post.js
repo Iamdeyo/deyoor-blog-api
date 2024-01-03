@@ -4,22 +4,46 @@ import database from '../libs/prisma.js';
 import asyncWrapper from '../middleware/asyncWrapper.js';
 import response from '../utils/response.js';
 import myCache from '../libs/nodeCache.js';
+import { deleteImage } from '../middleware/upload.js';
 
 const getPosts = asyncWrapper(async (req, res) => {
-    const { tag } = req.query;
-
     if (req.cacheData) {
         return response(res, StatusCodes.OK, 'All posts found', req.cacheData);
     }
 
     const posts = await database.post.findMany({
-        where: { ...(tag ? { tags: { has: tag } } : {}) },
+        orderBy: {
+            updatedAt: 'desc',
+        },
+    });
+    const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
+    myCache.set(cacheKey, posts, 1800);
+
+    return response(res, StatusCodes.OK, 'All posts found', posts);
+});
+const getMyPosts = asyncWrapper(async (req, res) => {
+    const { id, username } = req.user;
+
+    if (req.cacheData) {
+        return response(
+            res,
+            StatusCodes.OK,
+            `All ${username} posts found`,
+            req.cacheData,
+        );
+    }
+
+    const posts = await database.post.findMany({
+        where: { authorId: id },
+        orderBy: {
+            updatedAt: 'desc',
+        },
     });
 
     const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
     myCache.set(cacheKey, posts, 1800);
 
-    return response(res, StatusCodes.OK, 'All posts found', posts);
+    return response(res, StatusCodes.OK, `All ${username} posts found`, posts);
 });
 
 const getAPost = asyncWrapper(async (req, res) => {
@@ -64,6 +88,10 @@ const createPost = asyncWrapper(async (req, res) => {
             readTime,
         },
     });
+
+    // delete my post cache
+    myCache.del(`__deyoorBlogAPI__/api/post/me/${userId}`);
+
     return response(res, StatusCodes.CREATED, 'post created sucessfully', post);
 });
 
@@ -76,6 +104,7 @@ const editPost = asyncWrapper(async (req, res) => {
     const date = Date.now();
     const slug = dashify(`${title}-${date.toString()}`);
     const image = req.file ? req.file.path : null;
+    console.log(req.file);
 
     const readTime = calculateReadingTime(content);
 
@@ -87,10 +116,14 @@ const editPost = asyncWrapper(async (req, res) => {
         data: updateData,
     });
 
+    // delete my post cache
+    myCache.del(`__deyoorBlogAPI__/api/post/me/${userId}`);
+
     return response(res, StatusCodes.CREATED, 'post updated sucessfully', post);
 });
 
 const deletePost = asyncWrapper(async (req, res) => {
+    const { userId } = req.user;
     const { id } = req.params;
     const post = await database.post
         .delete({ where: { id, authorId: req.user.id } })
@@ -98,7 +131,11 @@ const deletePost = asyncWrapper(async (req, res) => {
     if (post.cause) {
         return response(res, StatusCodes.BAD_REQUEST, post.cause);
     }
+    await deleteImage(post.image);
+
+    // delete my post cache
+    myCache.del(`__deyoorBlogAPI__/api/post/me/${userId}`);
     return response(res, StatusCodes.OK, 'post deleted sucessfully');
 });
 
-export { getPosts, createPost, getAPost, editPost, deletePost };
+export { getPosts, getMyPosts, createPost, getAPost, editPost, deletePost };
