@@ -11,15 +11,29 @@ const getPosts = asyncWrapper(async (req, res) => {
         return response(res, StatusCodes.OK, 'All posts found', req.cacheData);
     }
 
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+
+    const skip = (page - 1) * pageSize;
+
+    const totalCount = await database.post.count();
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+
     const posts = await database.post.findMany({
+        take: pageSize,
+        skip: skip,
         orderBy: {
             updatedAt: 'desc',
         },
     });
     const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
-    myCache.set(cacheKey, posts, 1800);
+    myCache.set(cacheKey, { posts, totalPages }, 1800);
 
-    return response(res, StatusCodes.OK, 'All posts found', posts);
+    return response(res, StatusCodes.OK, 'All posts found', {
+        totalPages,
+        posts,
+    });
 });
 const getMyPosts = asyncWrapper(async (req, res) => {
     const { id, username } = req.user;
@@ -33,17 +47,30 @@ const getMyPosts = asyncWrapper(async (req, res) => {
         );
     }
 
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+
+    const skip = (page - 1) * pageSize;
+
+    const totalCount = await database.post.count({ where: { authorId: id } });
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+
     const posts = await database.post.findMany({
         where: { authorId: id },
+        take: pageSize,
+        skip: skip,
         orderBy: {
             updatedAt: 'desc',
         },
     });
-
     const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
-    myCache.set(cacheKey, posts, 1800);
+    myCache.set(cacheKey, { posts, totalPages }, 1800);
 
-    return response(res, StatusCodes.OK, `All ${username} posts found`, posts);
+    return response(res, StatusCodes.OK, 'All posts found', {
+        totalPages,
+        posts,
+    });
 });
 
 const getAPost = asyncWrapper(async (req, res) => {
