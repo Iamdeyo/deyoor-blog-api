@@ -11,8 +11,8 @@ const getPosts = asyncWrapper(async (req, res) => {
         return response(res, StatusCodes.OK, 'All posts found', req.cacheData);
     }
 
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 10;
+    const page = parseInt(req.query.page, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize, 10) || 10;
 
     const skip = (page - 1) * pageSize;
 
@@ -22,12 +22,12 @@ const getPosts = asyncWrapper(async (req, res) => {
 
     const posts = await database.post.findMany({
         take: pageSize,
-        skip: skip,
+        skip,
         orderBy: {
             updatedAt: 'desc',
         },
     });
-    const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
+    const cacheKey = `__deyoorBlogAPI__all__posts`;
     myCache.set(cacheKey, { posts, totalPages }, 1800);
 
     return response(res, StatusCodes.OK, 'All posts found', {
@@ -35,6 +35,7 @@ const getPosts = asyncWrapper(async (req, res) => {
         posts,
     });
 });
+
 const getMyPosts = asyncWrapper(async (req, res) => {
     const { id, username } = req.user;
 
@@ -47,8 +48,8 @@ const getMyPosts = asyncWrapper(async (req, res) => {
         );
     }
 
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 10;
+    const page = parseInt(req.query.page, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize, 10) || 10;
 
     const skip = (page - 1) * pageSize;
 
@@ -59,12 +60,13 @@ const getMyPosts = asyncWrapper(async (req, res) => {
     const posts = await database.post.findMany({
         where: { authorId: id },
         take: pageSize,
-        skip: skip,
+        skip,
         orderBy: {
             updatedAt: 'desc',
         },
     });
-    const cacheKey = `__deyoorBlogAPI__${req.originalUrl}`;
+
+    const cacheKey = `__deyoorBlogAPI__/api/post/me/${id}`;
     myCache.set(cacheKey, { posts, totalPages }, 1800);
 
     return response(res, StatusCodes.OK, 'All posts found', {
@@ -131,7 +133,6 @@ const editPost = asyncWrapper(async (req, res) => {
     const date = Date.now();
     const slug = dashify(`${title}-${date.toString()}`);
     const image = req.file ? req.file.path : null;
-    console.log(req.file);
 
     const readTime = calculateReadingTime(content);
 

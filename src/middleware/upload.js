@@ -18,32 +18,32 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
+    cloudinary,
     params: {
         folder: 'express-blog-api', // Optional, set a specific folder in Cloudinary
-        format: async (req, file) => 'png', // Example: always convert uploaded images to PNG format
+        format: async () => 'png', // Example: always convert uploaded images to PNG format
     },
 });
 
 // File filter function to allow only JPEG, JPG, and PNG
+// eslint-disable-next-line consistent-return
 const fileFilter = (allowedFileTypes) => (req, file, cb) => {
     const extname = allowedFileTypes.test(file.originalname.toLowerCase());
     const mimetype = allowedFileTypes.test(file.mimetype);
 
     if (extname && mimetype) {
         return cb(null, true);
-    } else {
-        cb(
-            new CustomErrorApi(
-                `Only ${allowedFileTypes} files are allowed!`,
-                StatusCodes.BAD_REQUEST,
-            ),
-        );
     }
+    cb(
+        new CustomErrorApi(
+            `Only ${allowedFileTypes} files are allowed!`,
+            StatusCodes.BAD_REQUEST,
+        ),
+    );
 };
 
 const upload = multer({
-    storage: storage,
+    storage,
     fileFilter: fileFilter(/jpeg|jpg|png/),
     limits: {
         fileSize: 1024 * 1024 * IMAGE_SIZE, // 1MB limit (adjust as needed)
@@ -51,10 +51,9 @@ const upload = multer({
 });
 
 const deleteImage = async (imageUrl) => {
-    let url = imageUrl.split('express-blog-api/');
-    url = url[url.length - 1].split('.png', 1)[0];
-    const publicId = 'express-blog-api/' + url;
-    console.log(publicId);
+    const urlArray = imageUrl.split('express-blog-api/');
+    const url = urlArray[urlArray.length - 1].split('.png', 1)[0];
+    const publicId = `express-blog-api/${url}`;
 
     await cloudinary.api.delete_resources([publicId], {
         type: 'upload',

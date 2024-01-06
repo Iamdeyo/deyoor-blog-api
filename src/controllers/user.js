@@ -1,6 +1,6 @@
+import { StatusCodes } from 'http-status-codes';
 import database from '../libs/prisma.js';
 import asyncWrapper from '../middleware/asyncWrapper.js';
-import { StatusCodes } from 'http-status-codes';
 import response from '../utils/response.js';
 
 const getAUser = asyncWrapper(async (req, res) => {
