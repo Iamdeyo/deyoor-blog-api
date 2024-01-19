@@ -38,7 +38,7 @@ Run Locally:
 
 ## Front-End Repository
 
--   **GitHub Repository**: [Link to Front-End Repository](https://github.com/your-username/your-frontend-repo)
+-   **GitHub Repository**: [Link to Front-End Repository](https://github.com/Iamdeyo/deyoor-blog-client)
 
 ## Live Demo
 
