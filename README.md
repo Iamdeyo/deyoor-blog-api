@@ -1,313 +1,50 @@
-# Blog API Documentation
+# DeyoBlog API Documentation
 
-Welcome to the Blog API documentation. This API allows you to interact with blog posts.
+## Introduction
 
-## Base URL
+Welcome to the DeyoBlog API documentation. DeyoBlog is a platform for sharing and managing blog content, and this API is designed to empower developers to integrate and interact with the platform seamlessly. Developed with JavaScript and HTML, the API leverages popular frameworks such as Node.js and Express.js, along with essential libraries including Prisma, Mocha, and MongoDB.
 
--   Base URL: `https://ethical-hettie-dtech.koyeb.app/`
+## Getting Started
 
-## Authentication
+To get started with the DeyoBlog API, follow the steps outlined in the "Getting Started" section. Obtain the necessary API access, explore authentication methods, and familiarize yourself with the base URL for making requests.
 
-To access the API, you need to include an API key in the request header.
+## Getting Started Locally
 
-```http
-  Authorization: Bearer TOKEN
-```
+Clone the Repository:
+
+        git clone https://github.com/your-username/your-api-repo.git
+
+Install Dependencies:
+
+        cd your-api-repo
+        npm install
+
+Set Up Environment Variables:
+
+1.  Create a `.env` file in the root of the project.
+2.  Copy the content from `.env.example` into `.env`.
+3.  Update the values in `.env` with your specific configuration.
+
+Run Locally:
+
+        npm run dev
+
+## Technologies Used
+
+-   **Language**: JavaScript, HTML
+-   **Framework**: Node.js, Express.js
+-   **Libraries**: Prisma, Mocha, multer
+-   **Database**: MongoDB
+
+## Front-End Repository
+
+-   **GitHub Repository**: [Link to Front-End Repository](https://github.com/your-username/your-frontend-repo)
+
+## Live Demo
+
+-   **Live Demo**: [Link to Live Demo](https://deyoblog.onrender.com/)
+-   **Live API**: [Link to Live API](https://deyoblogapi.onrender.com/)
 
 ## Endpoints
 
-1.  Register User
-    URL: /api/auth/register
-    Method: POST
-    Description: Creates a new user account.
-
-    # Request
-
-    ```json
-    {
-        "username": "Deyo",
-        "password": "DeyoTech"
-    }
-    ```
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-    ```json
-    {
-        "message": "User created successfully",
-        "data": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.YTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-        },
-        "errors": null
-    }
-    ```
-
-2.  login User
-    URL: /api/auth/login
-    Method: POST
-    Description: Login a user account.
-
-    # Request
-
-    ```json
-    {
-        "username": "Deyo",
-        "password": "DeyoTech"
-    }
-    ```
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-    ```json
-    {
-        "message": "User created successfully",
-        "data": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-        },
-        "errors": null
-    }
-    ```
-
-3.  Get User details
-    URL: /api/auth/me
-    Method: GET
-    Description: Retrieves the currently logged-in user's information.
-    Authentication: Required
-
-    # Request
-
-    No request parameters are required.
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-    ```json
-    {
-        "message": "User created successfully",
-        "data": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTliZWRjYTk1NWFkNmFiOGVjMTNkMiIsInVzZXJuYW1lIjoiRGV5byIsImlhdCI6MTY5NjE4NjA3NywiZXhwIjoxNjk2NzkwODc3fQ.G1qHpz6Se2WoLvcymyEip1vy0PkaLh9qMZWK6O8Veh4"
-        },
-        "errors": null
-    }
-    ```
-
-4.  List All Blog Posts
-    URL: /api/posts
-    Method: GET
-    Description: Retrieves a list of all blog posts.
-
-    # Request
-
-    query parameters
-    tag="blog" optional => Retrieves list all blog posts with tag
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-    ```json
-    {
-        "message": "All posts found",
-        "data": [
-            {
-                "id": "6519bfb2a955ad6ab8ec13d4",
-                "image": null,
-                "title": "My First Post",
-                "slug": "my-first-post-1696186287298",
-                "tags": ["post", "blog"],
-                "content": "This is the content of my first post",
-                "createdAt": "2023-10-01T18:51:27.305Z",
-                "updatedAt": "2023-10-01T18:51:27.305Z",
-                "authorId": "6519bedca955ad6ab8ec13d2"
-            }
-        ],
-        "errors": null
-    }
-    ```
-
-5.  Get A Blog Posts
-    URL: /api/post
-    Method: GET
-    Description: Retrieves a blog post using the id.
-
-    # Request
-
-    URL Parameters:
-    postId (required) - The unique identifier of the blog post.
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-          ```json
-          {
-            "message": "All posts found",
-            "data": {
-                "id": "6519bfb2a955ad6ab8ec13d4",
-                "image": null,
-                "title": "My First Post",
-                "slug": "my-first-post-1696186287298",
-                "tags": ["post", "blog"],
-                "content": "This is the content of my first post",
-                "createdAt": "2023-10-01T18:51:27.305Z",
-                "updatedAt": "2023-10-01T18:51:27.305Z",
-                "authorId": "6519bedca955ad6ab8ec13d2"
-              },
-            "errors": null
-          }
-          ```
-
-6.  Get A Blog Posts
-    URL: /api/post
-    Method: GET
-    Description: Retrieves a blog post using the id.
-
-    # Request
-
-    URL Parameters:
-    postId (required) - The unique identifier of the blog post.
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-          ```json
-          {
-            "message": "All posts found",
-            "data": {
-                "id": "6519bfb2a955ad6ab8ec13d4",
-                "image": null,
-                "title": "My First Post",
-                "slug": "my-first-post-1696186287298",
-                "tags": ["post", "blog"],
-                "content": "This is the content of my first post",
-                "createdAt": "2023-10-01T18:51:27.305Z",
-                "updatedAt": "2023-10-01T18:51:27.305Z",
-                "authorId": "6519bedca955ad6ab8ec13d2"
-              },
-            "errors": null
-          }
-          ```
-
-7.  Delete A Blog Posts
-    URL: /api/post
-    Method: DELETE
-    Description: Delete a blog post using the id.
-    Authentication: Required
-
-    # Request
-
-    URL Parameters:
-    postId (required) - The unique identifier of the blog post.
-
-    # Response
-
-    Status Code: 200 OK
-    Response Format: JSON
-
-          ```json
-          {
-            "message": "post deleted sucessfully",
-            "data": null,
-            "errors": null
-          }
-          ```
-
-8.  Create Post
-    URL: /api/post
-    Method: POST
-    Description: Create a blog post.
-    Authentication: Required
-
-        # Request
-
-          ```json
-          {
-            "title": "My Second Post",
-            "content": "This is the content of my second post",
-            "tags": ["post", "blog"],
-            "image": <FILE> "optional",
-          }
-          ```
-
-        # Response
-
-        Status Code: 200 OK
-        Response Format: JSON
-
-            ```json
-            {
-
-              "message": "post created sucessfully",
-              "data": {
-              "id": "6519c96fa955ad6ab8ec13d6",
-              "image": null,
-              "title": "My Second Post",
-              "slug": "my-second-post-1696188780172",
-              "tags": [
-              "post",
-              "blog"
-              ],
-              "content": "This is the content of my second post",
-              "createdAt": "2023-10-01T19:33:00.180Z",
-              "updatedAt": "2023-10-01T19:33:00.180Z",
-              "authorId": "6519bedca955ad6ab8ec13d2"
-              },
-              "errors": null
-            }
-            ```
-
-9.  Edit Post
-    URL: /api/post
-    Method: PATCH
-    Description: edit a blog post.
-    Authentication: Required
-
-        # Request
-
-          ```json
-          {
-            "title": "My Second Post",
-            "content": "This is the content of my second post",
-            "tags": ["post", "blog"],
-            "image": <FILE> "optional",
-          }
-          ```
-
-        # Response
-
-        Status Code: 200 OK
-        Response Format: JSON
-
-            ```json
-            {
-
-              "message": "post updated sucessfully",
-              "data": {
-              "id": "6519c96fa955ad6ab8ec13d6",
-              "image": null,
-              "title": "My Second Post",
-              "slug": "my-second-post-1696188780172",
-              "tags": [
-              "post",
-              "blog"
-              ],
-              "content": "This is the content of my second post",
-              "createdAt": "2023-10-01T19:33:00.180Z",
-              "updatedAt": "2023-10-01T19:33:00.180Z",
-              "authorId": "6519bedca955ad6ab8ec13d2"
-              },
-              "errors": null
-            }
-            ```
+The DeyoBlog API provides various endpoints to interact with the platform. Each endpoint serves a specific purpose, and you can find detailed information on their usage [here](https://documenter.getpostman.com/view/21049078/2s9YR58FrE).
